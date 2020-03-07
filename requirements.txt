@@ -1,0 +1,13 @@
+astroid==1.4.6
+colorama==0.3.7
+coverage==4.1
+Django==1.9.7
+django-cors-headers==1.1.0
+django-filter==0.13.0
+djangorestframework==3.3.3
+drfdocs==0.0.11
+lazy-object-proxy==1.2.2
+pylint==1.6.4
+six==1.10.0
+wrapt==1.10.8
+requests==2.10.0
