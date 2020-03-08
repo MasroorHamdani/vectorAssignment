@@ -11,4 +11,4 @@ pyenv
 setenv.sh
 db.sqlite3
 .DS_Store
-.*.pyc
+*.pyc

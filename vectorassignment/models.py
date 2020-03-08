@@ -2,8 +2,8 @@ from django.db import models
 
 class Continent(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    population = models.CharField(max_length=30)
+    name = models.CharField(max_length=100, unique=True)
+    population = models.CharField(max_length=100)
     area = models.IntegerField()
 
     class Meta: 
@@ -14,7 +14,7 @@ class Continent(models.Model):
 
 class Country(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     population = models.CharField(max_length=30)
     area = models.IntegerField()
     continent_id = models.ForeignKey(Continent, on_delete=models.CASCADE)
@@ -32,7 +32,7 @@ class Country(models.Model):
 
 class City(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     population = models.CharField(max_length=30)
     area = models.IntegerField()
     country_id = models.ForeignKey(Country, on_delete=models.CASCADE)

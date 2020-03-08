@@ -17,9 +17,11 @@ from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
+from vectorassignment.api import views
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^addcountry/$', views.CountryAddtView.as_view()),
 ]
 urlpatterns += staticfiles_urlpatterns()
