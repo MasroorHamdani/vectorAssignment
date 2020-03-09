@@ -22,6 +22,11 @@ from vectorassignment.api import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^addcountry/$', views.CountryAddtView.as_view()),
+    url(r'^country/$', views.CountryAddView.as_view()),
+    url(r'^country/(?P<id>.+)/$', views.CountryAddView.as_view()),
+    url(r'^city/$', views.CityAddView.as_view()),
+    url(r'^city/(?P<id>.+)/$', views.CityAddView.as_view()),
+    url(r'^continent/$', views.ContinentAddView.as_view()),
+    url(r'^continent/(?P<id>.+)/$', views.ContinentAddView.as_view())
 ]
 urlpatterns += staticfiles_urlpatterns()

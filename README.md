@@ -38,4 +38,10 @@
 # Part 1 - 
 So far, from Part 1, I have defined the models and POST operation for country is defined. Also, some of the validations, like total population or total area defined in countries which belong to same continent, should be in range of population and area defined for the continent. Also continent name should be unique, that constraint is added from the DB side.
 
-Next step, update and delete the Country table. Once that is done, same operation will be repeated for City table along with validations.
+Added Update and Delete functionalities for Country Model.
+
+Along with that added the implementation for City and Continent models, along with validations and operations like, insert, update and delete.
+
+Next, will move to Part 2.
+
+

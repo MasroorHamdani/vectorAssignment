@@ -5,6 +5,7 @@ class Continent(models.Model):
     name = models.CharField(max_length=100, unique=True)
     population = models.CharField(max_length=100)
     area = models.IntegerField()
+    is_deleted = models.BooleanField(default=False)
 
     class Meta: 
         ordering = ['name']
@@ -22,6 +23,7 @@ class Country(models.Model):
     no_of_nationalparks = models.IntegerField()
     no_of_rivers = models.IntegerField()
     no_of_schools = models.IntegerField()
+    is_deleted = models.BooleanField(default=False)
 
     # Metadata
     class Meta: 
@@ -40,6 +42,7 @@ class City(models.Model):
     no_of_trees = models.IntegerField()
     no_of_shops = models.IntegerField()
     no_of_schools = models.IntegerField()
+    is_deleted = models.BooleanField(default=False)
 
     # Metadata
     class Meta: 
