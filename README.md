@@ -43,5 +43,12 @@ Added Update and Delete functionalities for Country Model.
 Along with that added the implementation for City and Continent models, along with validations and operations like, insert, update and delete.
 
 Next, will move to Part 2.
+Part 2 is done, where I implemented Kafka as a seperate python script. Which will have producer and consumer both defined. Producer will take hard coded data defined in a file and create a topic for it, and consumer will listen to that topic, and once received, it will make an api call to this server to save the data.
+
+Part -3 is partially done
+Implemented logstash and logged the Errors wherever needed.
+I tried to create a more modular implamentation for it, but that is not working, it is throwing an Error and to implement that I need more time to invest. But for now, I have added it in setting.py which is the way we add logs in django. The modular part is also there, but I am not using that anywhere.
+
+Will move to docker implementation for the application now!
 
 

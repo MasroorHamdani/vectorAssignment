@@ -1,7 +1,6 @@
 """
 API view For Document like post, get method for any document.
 """
-import logging
 import json
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,9 +9,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from ..models import Continent, Country, City
 from ..serializers import CountrySerializer, CitySerializer, ContinentSerializer
+# from ..services.logstash import LogstashService
 
+import logging
+# LOGGER = LogstashService()
 
-LOGGER = logging.getLogger("application_logs")
+logger = logging.getLogger(__name__)
 
 
 class CountryAddView(APIView):
@@ -26,7 +28,7 @@ class CountryAddView(APIView):
         POST API - This api will first call the serializer to validate the format and type of data passed.
         Once that is valid, it will call a custom validate method to verify all the edge cases.
         If the function returns success, the data will be saved in DB, otherwise and an Error will be raised.
-        Error have been logged (for now as print statement), where as the end user will get a high level Error Message
+        Error have been logged, where as the end user will get a high level Error Message
 
         Same function is being used for POST and update both! the URL will contain country_id in case of an update operation.
         :param request:
@@ -60,16 +62,16 @@ class CountryAddView(APIView):
                             country_data.save()
                         return Response(data, status=200)
                     except IntegrityError as err:
-                        print(err, 'Error')
+                        logger.error('Error: {}'.format(err))
                         return Response({'Error': 'Database Error Found'}, status=400)
                 else:
-                    print('Data Validation failed | Some of the data from DB mismatches')
+                    logger.error('Error: Data Validation failed | Some of the data from DB mismatches')
                     return Response({'Error': 'Data Validation failed | Some of the data from DB mismatches'}, status=400)
             else:
-                print ('Validation Error')
+                logger.error('Error: Validation Error')
                 return Response({'Error': 'Validation Error'}, status=500)
         except Exception as ex:
-            print(ex, "Error")
+            logger.error('Error: {}'.format(ex))
             return Response({'Error': ex}, status=500)
 
     def delete(self, request, *args, **kwargs):
@@ -84,10 +86,10 @@ class CountryAddView(APIView):
             country_data.save()
             return Response({'Message': 'Record Deleted'}, status=200)
         except ObjectDoesNotExist as err:
-            print(err, 'Error')
+            logger.error('Error: {}'.format(err))
             return Response({'Error': 'Record not found'}, status=400)
         except Exception as ex:
-            print(ex, "Error")
+            logger.error('Error: {}'.format(ex))
             return Response({'Error': ex}, status=500)
 
 class CityAddView(APIView):
@@ -101,7 +103,7 @@ class CityAddView(APIView):
         POST API - This api will first call the serializer to validate the format and type of data passed.
         Once that is valid, it will call a custom validate method to verify all the edge cases.
         If the function returns success, the data will be saved in DB, otherwise and an Error will be raised.
-        Error have been logged (for now as print statement), where as the end user will get a high level Error Message
+        Error have been logged, where as the end user will get a high level Error Message
 
         Same function is being used for POST and update both! the URL will contain city_id in case of an update operation.
         :param request:
@@ -135,16 +137,16 @@ class CityAddView(APIView):
                             city_data.save()
                         return Response(data, status=200)
                     except IntegrityError as err:
-                        print(err, 'Error')
+                        logger.error('Error: {}'.format(err))
                         return Response({'Error': 'Database Error Found'}, status=400)
                 else:
-                    print('Data Validation failed | Some of the data from DB mismatches')
+                    logger.error('Error: Data Validation failed | Some of the data from DB mismatches')
                     return Response({'Error': 'Data Validation failed | Some of the data from DB mismatches'}, status=400)
             else:
-                print ('Validation Error')
+                logger.error('Error: Validation Error')
                 return Response({'Error': 'Validation Error'}, status=500)
         except Exception as ex:
-            print(ex, "Error")
+            logger.error('Error: {}'.format(ex))
             return Response({'Error': ex}, status=500)
 
     def delete(self, request, *args, **kwargs):
@@ -159,10 +161,10 @@ class CityAddView(APIView):
             city_data.save()
             return Response({'Message': 'Record Deleted'}, status=200)
         except ObjectDoesNotExist as err:
-            print(err, 'Error')
+            logger.error('Error: {}'.format(err))
             return Response({'Error': 'Record not found'}, status=400)
         except Exception as ex:
-            print(ex, "Error")
+            logger.error('Error: {}'.format(ex))
             return Response({'Error': ex}, status=500)
 
 class ContinentAddView(APIView):
@@ -175,13 +177,15 @@ class ContinentAddView(APIView):
         """
         POST API - This api will first call the serializer to validate the format and type of data passed.
         Once that is valid, the data will be saved in DB, otherwise an Error will be raised.
-        Error have been logged (for now as print statement), where as the end user will get a high level Error Message
+        Error have been logged, where as the end user will get a high level Error Message
 
         Same function is being used for POST and update both! the URL will contain continent_id in case of an update operation.
         :param request:
         :return: 200/400/500 status
         """
         continent_id = kwargs.get('id')
+        # LOGGER.log('info', 'Test log message')
+        
         try:
             data = request.data
             serializer = ContinentSerializer(data=data)
@@ -200,13 +204,13 @@ class ContinentAddView(APIView):
                         continent_data.save()
                     return Response(data, status=200)
                 except IntegrityError as err:
-                    print(err, 'Error')
+                    logger.error('Error: {}'.format(err))
                     return Response({'Error': 'Database Error Found'}, status=400)
             else:
-                print ('Validation Error')
+                logger.error('Error: Validation Error')
                 return Response({'Error': 'Validation Error'}, status=500)
         except Exception as ex:
-            print(ex, "Error")
+            logger.error('Error: {}'.format(ex))
             return Response({'Error': ex}, status=500)
 
     def delete(self, request, *args, **kwargs):
@@ -221,8 +225,8 @@ class ContinentAddView(APIView):
             continent_data.save()
             return Response({'Message': 'Record Deleted'}, status=200)
         except ObjectDoesNotExist as err:
-            print(err, 'Error')
+            logger.error('Error: {}'.format(err))
             return Response({'Error': 'Record not found'}, status=400)
         except Exception as ex:
-            print(ex, "Error")
+            logger.error('Error: {}'.format(ex))
             return Response({'Error': ex}, status=500)
